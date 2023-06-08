@@ -1,0 +1,13 @@
+# action.yaml
+name: 'CCF add member'
+author: 'Microsoft'
+description: 'Automated the addition of a member to a Managaed CCF instance'
+branding: 
+  icon: 'package'
+  color: 'blue'
+outputs:
+  proposal:
+    description: 'The proposal id for the proposal to add the member'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
