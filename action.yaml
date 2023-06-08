@@ -5,9 +5,15 @@ description: 'Automated the addition of a member to a Managaed CCF instance'
 branding: 
   icon: 'package'
   color: 'blue'
+inputs:
+  new_member_cert:
+    description: 'The public certificate of the new member being added'
+    required: true
 outputs:
   proposal:
     description: 'The proposal id for the proposal to add the member'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.new_member_cert }}
