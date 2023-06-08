@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cp $1 /opt/ccf_sgx/bin/new_member_cert
-
-# CERTD and KEYD represents an active member identity in the Managed CCF instance
+# CERTD and KEYD represents an active member in the CCF network.
+# NEWMEMBERD represents the public cert of the new member being added.
+echo "$NEWMEMBERD" > /opt/ccf_sgx/bin/newmembercert
 echo "$CERTD" > /opt/ccf_sgx/bin/cert
 echo "$KEYD" > /opt/ccf_sgx/bin/key
 
@@ -12,7 +12,7 @@ cd /opt/ccf_sgx/bin
 temp_file=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`
 
 # Replace the '\n' with literal '\n' character
-awk '{printf "%s\\n", $0}' new_member_cert > $temp_file
+awk '{printf "%s\\n", $0}' newmembercert > $temp_file
 
 # Replace the __MEMBER_CERTIFICATE__ placeholder in the proposal with the actual member certificate
 export MEMBER_CERT = $(cat $temp_file)
