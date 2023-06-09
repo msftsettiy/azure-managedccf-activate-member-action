@@ -1,13 +1,10 @@
 # action.yaml
 name: 'Azure Managed CCF Add Member action'
 author: 'Microsoft'
-description: 'Automate the addition of a member to a Managed CCF network'
+description: 'Ac action to add a member to a CCF network and activate it.'
 branding: 
   icon: 'package'
   color: 'blue'
-outputs:
-  proposal:
-    description: 'The proposal id for the proposal to add the member'
 runs:
   using: 'docker'
   image: 'Dockerfile'
