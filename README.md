@@ -20,22 +20,17 @@ These action require 2 secrets to be stored in GitHub.
 on: [push]
 
 jobs:
-  ccf-deploy:
+  ccf-add-member:
     runs-on: ubuntu-latest
-    name: Deploy CCF application
+    name: Add a member to a CCF network
     env:
       CCF_URL: '<your ccf endpoint>/'
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: CCF deploy
-        uses: msftsettiy/azure-managedccf-deploy-app-action@v0.1.0-alpha
-        id: deploy
+      - name: CCF add member
+        uses: msftsettiy/azure-managedccf-add-member-action@v0.1.2-alpha
+        id: add_member
         env:
+          NEWMEMBERCERTD: ${{ secrets.NEWMEMBERCERT }}
           CERTD: ${{ secrets.MEMBERCERT }}
           KEYD: ${{ secrets.MEMBERKEY }}
-        with:
-          application: '<path to your bundled application>'
-      - name: Get the proposal id
-        run: echo "The proposal id is ${{ steps.deploy.outputs.proposal }}"
 ```
