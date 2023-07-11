@@ -1,18 +1,17 @@
-# An action to add a member to a CCF instance
+# Add a member to a CCF network
 
-This GitHub action is designed to automate deployment of an application to a CCF network.
+This action will automate the addition of a member to a CCF network by submitting a proposal and accepting it.
 
 ---
 
 ## Pre-reqs
 
-These action require 2 secrets to be stored in GitHub.
+The action requires two sets of secrets to be stored in the GitHub repository secrets.
 
 - NEWMEMBERCERT - The certificate of the new member.
 - NEWMEMBERKEY - The private key of the new member.
 
 - MEMBERCERT - The certificate that has access to the network, which will be used to sign the transactions for CCF.
-
 - MEMBERKEY - The private key associated with the MEMBERCERT.
 
 ---
