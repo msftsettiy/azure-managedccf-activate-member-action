@@ -19,17 +19,16 @@ perl -p -i -e 's/__MEMBER_CERTIFICATE__/$ENV{MEMBER_CERT}/g' set_member.json
 
 # Add the member
 echo "Adding the member."
-content=$(ccf_cose_sign1 --ccf-gov-msg-type proposal --ccf-gov-msg-created_at `date -Is` --signing-key key --signing-cert cert --content set_member.json | curl ${CCF_URL}/gov/proposals -k -H "content-type: application/cose" --data-binary @-)
-echo "Add member response content: ${content}"
-proposal_id=$(echo "${content}" | jq '.proposal_id')
+id=$(ccf_cose_sign1 --ccf-gov-msg-type proposal --ccf-gov-msg-created_at `date -Is` --signing-key key --signing-cert cert --content set_member.json | curl ${CCF_URL}/gov/proposals -k -H "content-type: application/cose" --data-binary @-| jq '.proposal_id')
+proposal_id=$(eval echo $id)
 echo "Proposal id: ${proposal_id}"
 
 # Vote on the proposal
-content=$(ccf_cose_sign1 --ccf-gov-msg-type ballot --ccf-gov-msg-created_at `date -Is` --signing-key key --signing-cert cert --content accept.json --ccf-gov-msg-proposal_id ${proposal_id}| curl ${CCF_URL}/gov/proposals/${proposal_id}/ballots -k -H "content-type: application/cose" --data-binary @-)
-status=$(echo "${content}" | jq '.state')
-echo "Vote proposal status: ${status}"
+status=$(ccf_cose_sign1 --ccf-gov-msg-type ballot --ccf-gov-msg-created_at `date -Is` --signing-key key --signing-cert cert --content accept.json --ccf-gov-msg-proposal_id ${proposal_id}| curl ${CCF_URL}/gov/proposals/${proposal_id}/ballots -k -H "content-type: application/cose" --data-binary @-| jq '.state')
+state=$(eval echo $status)
+echo "Vote proposal state: ${state}"
 
-[[ $status="Accepted" ]] || ( echo "Member could not be added."; exit 1 )
+[[ $state=Accepted ]] || ( echo "Member could not be added."; exit 1 )
 
 # Activate the member
 echo "Activating the member."
