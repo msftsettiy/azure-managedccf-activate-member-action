@@ -27,7 +27,6 @@ echo "Proposal id: ${proposal_id}"
 # Vote on the proposal
 status=$(ccf_cose_sign1 --ccf-gov-msg-type ballot --ccf-gov-msg-created_at `date -Is` --signing-key key --signing-cert cert --content accept.json --ccf-gov-msg-proposal_id ${proposal_id}| curl ${CCF_URL}/gov/proposals/${proposal_id}/ballots -k -H "content-type: application/cose" --data-binary @-| jq '.state')
 state=$(eval echo $status)
-echo "Vote proposal state: ${state}"
 
 [[ $state=Accepted ]] || ( echo "Member could not be added."; exit 1 )
 
@@ -35,3 +34,5 @@ echo "Vote proposal state: ${state}"
 echo "Activating the member."
 curl ${CCF_URL}/gov/ack/update_state_digest -X POST -k --key newmemberkey --cert newmembercert > request.json
 ccf_cose_sign1 --content request.json --signing-cert newmembercert --signing-key newmemberkey --ccf-gov-msg-type ack --ccf-gov-msg-created_at `date -Is`|curl ${CCF_URL}/gov/ack -k -H 'Content-Type: application/cose' --data-binary @-
+
+echo "Done"
