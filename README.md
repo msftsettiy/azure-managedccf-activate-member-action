@@ -30,7 +30,7 @@ jobs:
       CCF_URL: '<your ccf endpoint>/'
     steps:
       - name: CCF add member
-        uses: msftsettiy/azure-managedccf-add-member-action@v0.1.2-alpha
+        uses: msftsettiy/azure-managedccf-add-member-action@v0.1.9-alpha
         id: add_member
         env:
           NEWMEMBERCERTD: ${{ secrets.NEWMEMBERCERT }}
