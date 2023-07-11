@@ -9,6 +9,7 @@ This GitHub action is designed to automate deployment of an application to a CCF
 These action require 2 secrets to be stored in GitHub.
 
 - NEWMEMBERCERT - The certificate of the new member.
+- NEWMEMBERKEY - The private key of the new member.
 
 - MEMBERCERT - The certificate that has access to the network, which will be used to sign the transactions for CCF.
 
@@ -33,6 +34,7 @@ jobs:
         id: add_member
         env:
           NEWMEMBERCERTD: ${{ secrets.NEWMEMBERCERT }}
+          NEWMEMBERKEYD: ${{ secrets.NEWMEMBERKEY }}
           CERTD: ${{ secrets.MEMBERCERT }}
           KEYD: ${{ secrets.MEMBERKEY }}
 ```
