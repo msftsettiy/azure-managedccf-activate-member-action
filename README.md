@@ -1,4 +1,4 @@
-# Action for deployment of applications to CCF
+# An action to add a member to a CCF instance
 
 This GitHub action is designed to automate deployment of an application to a CCF network.
 
