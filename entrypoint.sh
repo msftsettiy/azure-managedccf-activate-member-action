@@ -14,7 +14,7 @@ temp_file=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`
 awk '{printf "%s\\n", $0}' newmembercert > $temp_file
 
 # Replace the __MEMBER_CERTIFICATE__ placeholder in the proposal with the actual member certificate
-export MEMBER_CERT = $(cat $temp_file)
+export MEMBER_CERT=$(cat $temp_file)
 perl -p -i -e 's/__MEMBER_CERTIFICATE__/$ENV{MEMBER_CERT}/g' set_member.json
 
 # Add the member
