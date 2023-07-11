@@ -33,5 +33,5 @@ echo "Vote proposal state: ${state}"
 
 # Activate the member
 echo "Activating the member."
-curl ${CCF_URL}/gov/ack/update_state_digest -X POST -k --key key --cert cert > request.json
+curl ${CCF_URL}/gov/ack/update_state_digest -X POST -k --key newmemberkey --cert newmembercert > request.json
 ccf_cose_sign1 --content request.json --signing-cert newmembercert --signing-key newmemberkey --ccf-gov-msg-type ack --ccf-gov-msg-created_at `date -Is`|curl ${CCF_URL}/gov/ack -k -H 'Content-Type: application/cose' --data-binary @-
